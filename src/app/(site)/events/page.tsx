@@ -21,7 +21,7 @@ interface EventData {
   coverImage: string;
   tags: string[];
   duration: number; // Duration in hours
-  eventStatus: string; // Event status can be "upcoming", "ongoing", or "expired"
+  eventStatus: "upcoming" | "ongoing" | "expired";
   daysLeft: number; // Number of days left for the event to happen
 }
 
@@ -49,11 +49,15 @@ const ContactPage = () => {
               let eventStatus: string = "upcoming";
               const eventEndTime =
                 eventDate.getTime() + eventData.duration * 60 * 60 * 1000;
-              if (currentDate.getTime() >= eventEndTime) {
-                eventStatus = "expired";
-              } else if (currentDate.getTime() >= eventDate.getTime()) {
-                eventStatus = "ongoing";
-              }
+                if (currentDate.getTime() < eventDate.getTime()) {
+                  eventStatus = "upcoming";
+                } 
+                else if (currentDate.getTime() >= eventDate.getTime() && currentDate.getTime() < eventEndTime) {
+                  eventStatus = "ongoing";
+                } 
+                else {
+                  eventStatus = "expired";
+                }
 
               return {
                 ...eventData,

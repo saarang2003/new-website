@@ -55,7 +55,7 @@ const Event: React.FC<EventProps> = ({
             {eventStatus}
           </span>
           <span className="text-xs text-orange-500">
-            {daysLeft} days left
+            {daysLeft>0 ? `${daysLeft} days left` : `${-daysLeft} days ago`}
           </span>
         </div>
       </div>
@@ -88,7 +88,7 @@ const Event: React.FC<EventProps> = ({
           {tags.map((tag, index) => (
             <span
               key={index}
-              className="text-xs font-medium bg-blue-200 text-blue-500 px-2 py-1 rounded"
+              className="text-xs font-medium bg-blue-200 text-blue-500 px-2 py-1 rounded mb-3"
             >{tag}
             </span>
           ))}
