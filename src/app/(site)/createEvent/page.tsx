@@ -32,6 +32,30 @@ const CreateEventPage: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleDuration = (e:any) => {
+    const value = e.target.value;
+    setEventData({ ...eventData, eventDuration: value });
+    if (value.trim() === "") {
+      e.target.setCustomValidity("Please enter the event duration");
+      return;
+    }
+    if (!/^\d*\.?\d*$/.test(value)) {
+      e.target.setCustomValidity("Only numbers and decimal points are allowed");
+      return;
+    }
+
+    const duration = parseFloat(value);
+    if (isNaN(duration) || duration <= 0) {
+      e.target.setCustomValidity("Please enter a valid positive number");
+    } else {
+      const minutes = Math.round((duration % 1) * 100);
+      if (minutes >= 60) {
+        e.target.setCustomValidity("Minutes cannot exceed 59.");
+      } else {
+        e.target.setCustomValidity("");
+      }
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -133,6 +157,7 @@ const CreateEventPage: React.FC = () => {
             value={eventData.date}
             onChange={handleChange}
             required
+            min={new Date().toISOString().split("T")[0]}
             placeholder="event date"
             className="border mt-0.5 mb-2 border-gray-300 dark:border-gray-600 rounded-md p-2 w-full focus:outline-blue-500 dark:bg-gray-700 dark:text-white"
           />
@@ -149,7 +174,7 @@ const CreateEventPage: React.FC = () => {
             type="text"
             name="eventDuration"
             value={eventData.eventDuration}
-            onChange={handleChange}
+            onChange={handleDuration}
             required
             placeholder="Event Duration in hours"
             className="border mt-2 mb-2 border-gray-300 dark:border-gray-600 rounded-md p-2 w-full focus:outline-blue-500 dark:bg-gray-700 dark:text-white"
