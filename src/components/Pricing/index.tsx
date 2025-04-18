@@ -19,7 +19,7 @@ const Pricing = () => {
           />
         </div>
 
-        <div className="-mx-4 flex flex-wrap justify-center">
+        <div className="-mx-4 flex flex-wrap  justify-center" >
           {pricingData.map((product, i) => (
             <PricingBox key={i} product={product} />
           ))}     
