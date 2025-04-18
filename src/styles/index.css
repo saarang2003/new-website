@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 body {
   font-family: "Inter", sans-serif;
 }
@@ -74,4 +76,14 @@ body {
 
 .blog-details h3 {
   @apply text-dark mb-6 text-2xl font-bold dark:text-white sm:text-[28px] sm:leading-[40px];
+}
+
+
+@keyframes zoomInOut {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.005);
+  }
 }

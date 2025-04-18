@@ -34,6 +34,7 @@ export default function Home() {
       <Faq />
       <Team showAll={false} />
     {/*  <LinkedInPosts /> */}
+    <Pricing />
       <Contact />
       <Clients />
     </main>
